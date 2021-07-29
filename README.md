@@ -39,4 +39,4 @@ F_plot.plotICASeq(dic_dataSeq)
 
 ### Example of result with ICA Curves :
 
-![](ICACurves.png)
+![](ICACurves.PNG)
