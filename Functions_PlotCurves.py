@@ -259,7 +259,7 @@ def plotCurve1yAxis(x, y, xlabel, ylabel):
 
 #################################################
 """
-ploT_curve2yAxis : Plot a curve from parameters x and two y axis
+plotCurve2yAxis : Plot a curve from parameters x and two y axis
 Parameters :    x,y1 and y2 - Data to plot
                 title - title of the graph
                 xlabel and y-labels - title of the axis
@@ -459,7 +459,7 @@ def capaFilter(x, y, param_smooth):
 
 #################################################
 """
-capaFilter : Apply a filter in order to smooth the curve (y-axis)
+ICAFilter : Apply a filter in order to smooth the curve (y-axis)
 Parameters :    ICA : ICA data
                 window : lenght of the filter window, odd integer, usually 51 is good
                 order : order of the polynomial used to fit the samples
@@ -470,6 +470,15 @@ def ICAFilter(ICA, window, order):
     y_sf = scipy.signal.savgol_filter(ICA, window, order)
 
     return y_sf
+
+
+#################################################
+"""
+ICAFilter : Apply a filter in order to smooth the curve (y-axis)
+Parameters :    ICA : ICA data
+                window : lenght of the filter window, odd integer, usually 51 is good
+                order : order of the polynomial used to fit the samples
+"""
 
 
 def plotICASeq(dic_dataSeq):
