@@ -19,7 +19,7 @@ import scipy.signal
 TIME_LABEL = 'Time (s)'
 CURRENT_LABEL = 'Current (A)'
 VOLTAGE_LABEL = 'Voltage (V)'
-CAPACITY_LABEL = 'Capacity (Ah)'
+CAPACITY_LABEL = 'Capacity (mA.h)'
 ICA_LABEL = 'ICA dQ/dV'
 
 # columns of the CSV FILE HEADERS
@@ -183,14 +183,14 @@ def sortData(dataset):
                 T_c[i].append(t_cycle[i][k])
                 V_c[i].append(v_cycle[i][k])
                 I_c[i].append(i_cycle[i][k])
-                Q_c[i].append(Q_c_cycle[i][k])
+                Q_c[i].append(Q_c_cycle[i][k]/1000)
                 tempe_c[i].append(tempe_cycle[i][k])
 
             else:  # negative current -> discharge
                 T_d[i].append(i_cycle[i][k])
                 V_d[i].append(v_cycle[i][k])
                 I_d[i].append(i_cycle[i][k])
-                Q_d[i].append(Q_d_cycle[i][k])
+                Q_d[i].append(Q_d_cycle[i][k]/1000)
                 tempe_d[i].append(tempe_cycle[i][k])
 
         buff = k+buff+1
@@ -395,11 +395,11 @@ def calculICA(voltage, capacity, charge):
                     calcul = ((capacity[i+1]-capacity[i-1]) /
                               (voltage[i+1]-voltage[i-1]))
                     if charge == 0:
-                        if (calcul > -200000000) and (calcul < 200) and voltage[i] < 3.6:
+                        if (calcul > -200000000) and (calcul < 200) and voltage[i] < 3.6 and voltage[i] > 3.0:
                             ICA.append(calcul)
                             new_voltage.append(voltage[i])
                     if charge == 1:
-                        if (calcul > -2500) and (calcul < 10000000) and voltage[i] < 3.6 and voltage[i] > 3.2:
+                        if (calcul > -2500) and (calcul < 10000000) and voltage[i] < 3.6 and voltage[i] > 3.0:
                             ICA.append(calcul)
                             new_voltage.append(voltage[i])
     return ICA, new_voltage
@@ -475,16 +475,15 @@ def ICAFilter(ICA, window, order):
 def plotICASeq(dic_dataSeq):
     legend = []
     for i in [1, 2, 3]:
-        x1 = dic_dataSeq["V_c"][i]
-        y1 = dic_dataSeq["Q_c"][i]
-        print('i : ', i)
-        x_new1, y_new1 = capaFilter(x1, y1, 0.1)
+        x = dic_dataSeq["V_c"][i]
+        y = dic_dataSeq["Q_c"][i]
+        x_new, y_new = capaFilter(x, y, 0.1)
 
-        ICA1, V1 = calculICA(x_new1, y_new1, 1)
+        ICA, V = calculICA(x_new, y_new, 1)
 
-        y_sf1 = ICAFilter(ICA1, 51, 3)
+        y_sf = ICAFilter(ICA, 51, 3)
         legend.append('Cycle ' + str(i))
-        plt.plot(V1, y_sf1)  # , color='blue')
+        plt.plot(V, y_sf)
 
     plt.title('ICA')
     plt.xlabel(VOLTAGE_LABEL)

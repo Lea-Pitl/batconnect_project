@@ -30,4 +30,6 @@ dic_dataSet, nbCycle, nbSeq = F_plot.readFile(file_title)
 #F_plot.plotCurrentVoltage(dataSet["time"], dataSet["current"], dataSet["voltage"])
 
 dic_dataCycle, dic_dataSeq = F_plot.sortData(dic_dataSet)
+#F_plot.plotVoltageCapacity(dic_dataSeq["V_c"][1],dic_dataSeq["Q_c"][1])
+
 F_plot.plotICASeq(dic_dataSeq)
