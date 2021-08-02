@@ -19,7 +19,7 @@ import scipy.signal
 TIME_LABEL = 'Time (s)'
 CURRENT_LABEL = 'Current (A)'
 VOLTAGE_LABEL = 'Voltage (V)'
-CAPACITY_LABEL = 'Capacity (mA.h)'
+CAPACITY_LABEL = 'Capacity (A.h)'
 ICA_LABEL = 'ICA dQ/dV'
 
 # columns of the CSV FILE HEADERS
@@ -75,7 +75,7 @@ def readFile(file_title):
                 # row[3]=3rd column of the row -> Voltage values
                 voltage.append(float(row[VOLTAGE]))
                 # row[4]=4th column of the row -> Current values
-                current.append(float(row[CURRENT]))
+                current.append(float(row[CURRENT])/1000)
                 # row[5]=5th column of the row -> Charge capacity values
                 capacity_charge.append(float(row[CHARGE]))
                 # row[6]=6th column of the row -> Discharge capacity values
@@ -182,14 +182,14 @@ def sortData(dataset):
             if (i_cycle[i][k] > 0):  # positive current -> charge
                 T_c[i].append(t_cycle[i][k])
                 V_c[i].append(v_cycle[i][k])
-                I_c[i].append(i_cycle[i][k])
+                I_c[i].append(i_cycle[i][k]/1000)
                 Q_c[i].append(Q_c_cycle[i][k]/1000)
                 tempe_c[i].append(tempe_cycle[i][k])
 
             else:  # negative current -> discharge
                 T_d[i].append(i_cycle[i][k])
                 V_d[i].append(v_cycle[i][k])
-                I_d[i].append(i_cycle[i][k])
+                I_d[i].append(i_cycle[i][k]/1000)
                 Q_d[i].append(Q_d_cycle[i][k]/1000)
                 tempe_d[i].append(tempe_cycle[i][k])
 
@@ -229,7 +229,7 @@ Parameters :    title - title of the graph
 
 
 def plotShow():
-    # plt.grI_d(linestyle='-', linewI_dth=0.5)
+    # plt.grid(linestyle='-', linewI_dth=0.5)
     plt.legend()
     plt.show()
 
@@ -243,9 +243,8 @@ Parameters :    x and y - Data to plot
 """
 
 
-def plotCurve1yAxis(x, y, xlabel, ylabel):
+def plotCurve1yAxis(x, y, xlabel, ylabel,color):
 
-    color = 'tab:red'
     plt.xlabel(xlabel)
     plt.ylabel(ylabel, color=color)
     plt.plot(x, y, color=color)  # , marker='o')
@@ -336,14 +335,16 @@ Parameters :    time, current, voltage - data lists
 
 def plotCurrentVoltage(time, current, voltage):
     plot1 = plt.figure(1)
+    color = 'tab:red'
 
-    plotCurve1yAxis(time, current, TIME_LABEL, CURRENT_LABEL)
+    plotCurve1yAxis(time, current, TIME_LABEL, CURRENT_LABEL, color)
     plt.title('Current in function of time')
     plt.grid(linestyle='-', linewidth=0.5)
+    color = 'tab:blue'
 
     plot1 = plt.figure(2)
 
-    plotCurve1yAxis(time, voltage, TIME_LABEL, VOLTAGE_LABEL)
+    plotCurve1yAxis(time, voltage, TIME_LABEL, VOLTAGE_LABEL, color)
     plt.title('Voltage in function of time')
     plt.grid(linestyle='-', linewidth=0.5)
 
@@ -358,7 +359,7 @@ Parameters :    voltage, capacity - data lists
 
 
 def plotVoltageCapacity(voltage, capacity):
-    plotCurve1yAxis(voltage, capacity, VOLTAGE_LABEL, CAPACITY_LABEL)
+    plotCurve1yAxis(voltage, capacity, VOLTAGE_LABEL, CAPACITY_LABEL, 'green')
     plt.title('Capacity in function of voltage')
     plt.grid(linestyle='-', linewidth=0.5)
 
@@ -395,11 +396,11 @@ def calculICA(voltage, capacity, charge):
                     calcul = ((capacity[i+1]-capacity[i-1]) /
                               (voltage[i+1]-voltage[i-1]))
                     if charge == 0:
-                        if (calcul > -200000000) and (calcul < 200) and voltage[i] < 3.6 and voltage[i] > 3.0:
+                        if (calcul > -200000000) and (calcul < 200) and voltage[i] < 3.6 and voltage[i] > 3.1:
                             ICA.append(calcul)
                             new_voltage.append(voltage[i])
                     if charge == 1:
-                        if (calcul > -2500) and (calcul < 10000000) and voltage[i] < 3.6 and voltage[i] > 3.0:
+                        if (calcul > -2500) and (calcul < 10000000) and voltage[i] < 3.6 and voltage[i] > 3.1:
                             ICA.append(calcul)
                             new_voltage.append(voltage[i])
     return ICA, new_voltage
@@ -494,7 +495,7 @@ def plotICASeq(dic_dataSeq):
         legend.append('Cycle ' + str(i))
         plt.plot(V, y_sf)
 
-    plt.title('ICA')
+    plt.title('ICA Curve for charges at 30A')
     plt.xlabel(VOLTAGE_LABEL)
     plt.ylabel(ICA_LABEL)
     plt.grid(linestyle='-', linewidth=0.5)
