@@ -243,7 +243,7 @@ Parameters :    x and y - Data to plot
 """
 
 
-def plotCurve1yAxis(x, y, xlabel, ylabel,color):
+def plotCurve1yAxis(x, y, xlabel, ylabel, color):
 
     plt.xlabel(xlabel)
     plt.ylabel(ylabel, color=color)
@@ -381,6 +381,34 @@ def plotVoltageICA(voltage, ICA):
     plotShow()
 
 
+#################################################
+"""
+plotOverlaidVoltageCurves : Overlais the voltages curves on one plot
+Parameters :    dic_dataCycle - data dictionary of the cycles
+"""
+def plotOverlaidVoltageCurves(dic_dataCycle):
+    legend = []
+    x = []
+    y = []
+
+    for i in range(0, 15):
+        legend.append('Cycle ' + str(i))
+        x.append([])
+        y.append([])
+        for j in range(len(dic_dataCycle["t_cycle"][i+1])):
+            x[i].append(dic_dataCycle["t_cycle"][i+1][j] -
+                        dic_dataCycle["t_cycle"][i+1][0])
+            y[i].append(dic_dataCycle["v_cycle"][i+1][j])
+        plt.plot(x[i], y[i])
+
+    plt.title('Voltage in function of time for 15 cycles')
+    plt.xlabel(TIME_LABEL)
+    plt.ylabel(VOLTAGE_LABEL)
+    plt.grid(linestyle='-', linewidth=0.5)
+    plt.legend(legend, loc='upper left')
+    plt.show()
+
+
 ##################################################################################################
 #                    CALCUL FUNCTIONS
 ##################################################################################################
@@ -475,10 +503,8 @@ def ICAFilter(ICA, window, order):
 
 #################################################
 """
-ICAFilter : Apply a filter in order to smooth the curve (y-axis)
-Parameters :    ICA : ICA data
-                window : lenght of the filter window, odd integer, usually 51 is good
-                order : order of the polynomial used to fit the samples
+plotICASeq : global function to filter the data and plot the ICA
+Parameters :    dic_dataSeq : dictionary of the data to plot
 """
 
 
