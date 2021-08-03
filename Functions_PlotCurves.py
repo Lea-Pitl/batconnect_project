@@ -38,15 +38,18 @@ TEMPERATURE = 7
 ##################################################################################################
 
 #################################################
-"""
-readFile : Read a csv file and create lists from the different columns
-Parameters : file_title - Title of the csv file to read
-Return : Lists of each column of the csv file and the number of line
-"""
-
 
 def readFile(file_title):
-
+    """
+    readFile : Read a csv file and create lists from the different columns
+    Parameters : 
+        file_title (str) - Title of the csv file to read
+    Return :
+        dic_dataset (dict) - dictionary with the values from the csv file
+        nb_cycle (int) - number of cycle
+        nb_seq (int) - number of different sequences (charge CC, charge CV, discharge, rest, etc...)
+    """
+    
     sequence = []
     time = []
     cycles = []
@@ -77,9 +80,9 @@ def readFile(file_title):
                 # row[4]=4th column of the row -> Current values
                 current.append(float(row[CURRENT])/1000)
                 # row[5]=5th column of the row -> Charge capacity values
-                capacity_charge.append(float(row[CHARGE]))
+                capacity_charge.append(float(row[CHARGE])/1000)
                 # row[6]=6th column of the row -> Discharge capacity values
-                capacity_discharge.append(float(row[DISCHARGE]))
+                capacity_discharge.append(float(row[DISCHARGE])/1000)
                 # row[7]=7th column of the row -> Discharge capacity values
                 temperature.append(float(row[TEMPERATURE]))
             line_count += 1
@@ -100,14 +103,15 @@ def readFile(file_title):
 
 
 #################################################
-"""
-sorT_data : create sublists from the datas depending on the cycle and the sequence
-Parameters : datas -
-Return :
-"""
-
-
 def sortData(dataset):
+    """
+    sortData : create sublists from the datas depending on the cycle and the sequence
+    Parameters : 
+        dataset (dict) - dictionary  
+    Return :    
+        dic_data_cycle (dict) - dictionary with the data sorted by cycles (both charge and discharge)
+        dic_data_seq (dict) - dictionary with the data sorted by sequences (charge OR discharge)
+    """
 
     print('         ################################ \n '
           'Sort data according to the cycles and the sequences \n'
@@ -183,38 +187,38 @@ def sortData(dataset):
                 T_c[i].append(t_cycle[i][k])
                 V_c[i].append(v_cycle[i][k])
                 I_c[i].append(i_cycle[i][k]/1000)
-                Q_c[i].append(Q_c_cycle[i][k]/1000)
+                Q_c[i].append(Q_c_cycle[i][k])
                 tempe_c[i].append(tempe_cycle[i][k])
 
             else:  # negative current -> discharge
                 T_d[i].append(i_cycle[i][k])
                 V_d[i].append(v_cycle[i][k])
                 I_d[i].append(i_cycle[i][k]/1000)
-                Q_d[i].append(Q_d_cycle[i][k]/1000)
+                Q_d[i].append(Q_d_cycle[i][k])
                 tempe_d[i].append(tempe_cycle[i][k])
 
         buff = k+buff+1
 
-        dI_c_data_cycle = {}
-        dI_c_data_seq = {}
-        dI_c_data_cycle["t_cycle"] = t_cycle
-        dI_c_data_cycle["i_cycle"] = i_cycle
-        dI_c_data_cycle["v_cycle"] = v_cycle
-        dI_c_data_cycle["Q_c_cycle"] = Q_c_cycle
-        dI_c_data_cycle["Q_d_cycle"] = Q_d_cycle
-        dI_c_data_cycle["tempe_cycle"] = tempe_cycle
-        dI_c_data_seq["T_d"] = T_d
-        dI_c_data_seq["V_d"] = V_d
-        dI_c_data_seq["I_d"] = I_d
-        dI_c_data_seq["Q_d"] = Q_d
-        dI_c_data_seq["tempe_d"] = tempe_d
-        dI_c_data_seq["T_c"] = T_c
-        dI_c_data_seq["V_c"] = V_c
-        dI_c_data_seq["I_c"] = I_c
-        dI_c_data_seq["Q_c"] = Q_c
-        dI_c_data_seq["tempe_c"] = tempe_c
+        dic_data_cycle = {}
+        dic_data_seq = {}
+        dic_data_cycle["t_cycle"] = t_cycle
+        dic_data_cycle["i_cycle"] = i_cycle
+        dic_data_cycle["v_cycle"] = v_cycle
+        dic_data_cycle["Q_c_cycle"] = Q_c_cycle
+        dic_data_cycle["Q_d_cycle"] = Q_d_cycle
+        dic_data_cycle["tempe_cycle"] = tempe_cycle
+        dic_data_seq["T_d"] = T_d
+        dic_data_seq["V_d"] = V_d
+        dic_data_seq["I_d"] = I_d
+        dic_data_seq["Q_d"] = Q_d
+        dic_data_seq["tempe_d"] = tempe_d
+        dic_data_seq["T_c"] = T_c
+        dic_data_seq["V_c"] = V_c
+        dic_data_seq["I_c"] = I_c
+        dic_data_seq["Q_c"] = Q_c
+        dic_data_seq["tempe_c"] = tempe_c
 
-    return dI_c_data_cycle, dI_c_data_seq
+    return dic_data_cycle, dic_data_seq
 
 
 ##################################################################################################
@@ -222,29 +226,31 @@ def sortData(dataset):
 ##################################################################################################
 
 #################################################
-"""
-plotShow : Funciton to show the plot
-Parameters :    title - title of the graph
-"""
-
-
 def plotShow():
+    """
+    plotShow : Function to show the plot
+    
+    Parameters :
+        title (str) - title of the graph
+    """
     # plt.grid(linestyle='-', linewI_dth=0.5)
     plt.legend()
     plt.show()
 
 
 #################################################
-"""
-ploT_curve2yAxis : Plot a curve from parameters x and one y axis
-Parameters :    x and y - Data to plot
-                title - title of the graph
-                xlabel and ylabel - title of the axis
-"""
+
 
 
 def plotCurve1yAxis(x, y, xlabel, ylabel, color):
-
+    """
+    ploT_curve2yAxis : Plot a curve from parameters x and one y axis
+    
+    Parameters :
+        x (list) and y (list) - Data to plot
+        title (str) - title of the graph
+        xlabel (str) and ylabel (str) - title of the axis
+    """
     plt.xlabel(xlabel)
     plt.ylabel(ylabel, color=color)
     plt.plot(x, y, color=color)  # , marker='o')
@@ -257,16 +263,16 @@ def plotCurve1yAxis(x, y, xlabel, ylabel, color):
 
 
 #################################################
-"""
-plotCurve2yAxis : Plot a curve from parameters x and two y axis
-Parameters :    x,y1 and y2 - Data to plot
-                title - title of the graph
-                xlabel and y-labels - title of the axis
-"""
-
 
 def plotCurve2yAxis(x, y1, y2, title, xlabel, y1label, y2label):
-
+    """
+    plotCurve2yAxis : Plot a curve from parameters x and two y axis
+    
+    Parameters : 
+        x,y1 and y2 (lists) - Data to plot
+        title (str) - title of the graph
+        xlabel and y-labels (str) - title of the axis
+    """
     fig, ax1 = plt.subplots()
 
     color = 'tab:red'
@@ -290,21 +296,23 @@ def plotCurve2yAxis(x, y1, y2, title, xlabel, y1label, y2label):
 
 
 #################################################
-"""
-ploT_curves : Plot curves on different figures (x1/y1 ; x2/y2)
-Parameters :    x & y - datas
-                title - title of the graph
-"""
 
-
-def plotCurves(time1, time2, y1, y2, labelx1, labely1, labelx2, labely2, title1, title2):
-
+def plotCurves(x1, x2, y1, y2, labelx1, labely1, labelx2, labely2, title1, title2):
+    """
+    plotCurves : Plot curves on different figures (x1/y1 ; x2/y2)
+    
+    Parameters :
+        x & y (lists) - datas
+        labels (str) - title of the different axis
+        title (str) - title of the graph
+    """
+    
     plot1 = plt.figure(1)
 
     color = 'tab:red'
     plt.xlabel(labelx1)
     plt.ylabel(labely1, color=color)
-    plt.plot(time1, y1, color=color, marker='o')
+    plt.plot(x1, y1, color=color, marker='o')
     plt.tick_params(axis='y', labelcolor=color)
     plt.title(title1)
 
@@ -313,7 +321,7 @@ def plotCurves(time1, time2, y1, y2, labelx1, labely1, labelx2, labely2, title1,
     color = 'tab:blue'
     plt.xlabel(labelx2)
     plt.ylabel(labely2, color=color)
-    plt.plot(time2, y2, color=color, marker='o')
+    plt.plot(x2, y2, color=color, marker='o')
     plt.tick_params(axis='y', labelcolor=color)
 
     plt.grid(linestyle='-', linewidth=0.5)
@@ -327,13 +335,16 @@ def plotCurves(time1, time2, y1, y2, labelx1, labely1, labelx2, labely2, title1,
 
 
 #################################################
-"""
-ploT_currentVoltage : Plot curves of current and voltage in funciton of time on two different figures
-Parameters :    time, current, voltage - data lists
-"""
-
 
 def plotCurrentVoltage(time, current, voltage):
+    """
+    ploT_currentVoltage : Plot curves of current and voltage in funciton of time on two different figures
+    
+    Parameters :
+        time, current, voltage (lists) - data lists
+    """
+
+
     plot1 = plt.figure(1)
     color = 'tab:red'
 
@@ -352,13 +363,16 @@ def plotCurrentVoltage(time, current, voltage):
 
 
 #################################################
-"""
-plotVoltageCapacity : Plot the capacity in function of voltage
-Parameters :    voltage, capacity - data lists
-"""
-
 
 def plotVoltageCapacity(voltage, capacity):
+    """
+    plotVoltageCapacity : Plot the capacity in function of voltage
+    
+    Parameters :
+        voltage, capacity (lists) - data lists
+    """
+
+
     plotCurve1yAxis(voltage, capacity, VOLTAGE_LABEL, CAPACITY_LABEL, 'green')
     plt.title('Capacity in function of voltage')
     plt.grid(linestyle='-', linewidth=0.5)
@@ -367,13 +381,15 @@ def plotVoltageCapacity(voltage, capacity):
 
 
 #################################################
-"""
-plotVoltageICA : Plot dQ/dV in function of voltage
-Parameters :    voltage, ICA - data lists
-"""
-
 
 def plotVoltageICA(voltage, ICA):
+    """
+    plotVoltageICA : Plot dQ/dV in function of voltage
+    
+    Parameters :
+        voltage, ICA (lists) - data lists
+    """
+
     plotCurve1yAxis(voltage, ICA, VOLTAGE_LABEL, ICA_LABEL)
     plt.title('ICA')
     plt.grid(linestyle='-', linewidth=0.5)
@@ -382,28 +398,39 @@ def plotVoltageICA(voltage, ICA):
 
 
 #################################################
-"""
-plotOverlaidVoltageCurves : Overlais the voltages curves on one plot
-Parameters :    dic_dataCycle - data dictionary of the cycles
-"""
-def plotOverlaidVoltageCurves(dic_dataCycle):
+
+def plotOverlaidCurves(dic_data, x_str, y_str, x_label, y_label, title, nb_cycle):
+
+    """Overlay the voltages curves on one plot
+    
+    Parameters :    
+        dic_data (dict) - data dictionary of the cycles of the sequences
+        x_str (str) - string for the dictionary ; x-values
+        y_str (str) - string for the dictionary ; y-values
+        x_label & y_label (str) - label for the axis
+        title (str): title of the graph
+        nb_cycle (int): number of cycles (== number of curves to plot)
+    """
+    
+    
     legend = []
     x = []
     y = []
 
-    for i in range(0, 15):
+    for i in range(0, nb_cycle):
         legend.append('Cycle ' + str(i))
         x.append([])
         y.append([])
-        for j in range(len(dic_dataCycle["t_cycle"][i+1])):
-            x[i].append(dic_dataCycle["t_cycle"][i+1][j] -
-                        dic_dataCycle["t_cycle"][i+1][0])
-            y[i].append(dic_dataCycle["v_cycle"][i+1][j])
+        
+
+        for j in range(len(dic_data[x_str][i+1])):
+            x[i].append(dic_data[x_str][i+1][j] )#- dic_data[x_str][i+1][0])
+            y[i].append(dic_data[y_str][i+1][j])
         plt.plot(x[i], y[i])
 
-    plt.title('Voltage in function of time for 15 cycles')
-    plt.xlabel(TIME_LABEL)
-    plt.ylabel(VOLTAGE_LABEL)
+    plt.title(title)
+    plt.xlabel(x_label)
+    plt.ylabel(y_label)
     plt.grid(linestyle='-', linewidth=0.5)
     plt.legend(legend, loc='upper left')
     plt.show()
@@ -415,6 +442,8 @@ def plotOverlaidVoltageCurves(dic_dataCycle):
 
 
 def calculICA(voltage, capacity, charge):
+    
+    
     ICA = []
     new_voltage = []
     if(len(voltage) == len(capacity)):
@@ -435,16 +464,17 @@ def calculICA(voltage, capacity, charge):
 
 
 #################################################
-"""
-capacityCalcul : create a list of capacity values from time and current values
-Parameters :    time : time values (s)
-                current : current values (A)
-                n : nomber of values
-                charge : either 1 or 0 (1 == charge values ; 0 == discharge values)
-"""
-
 
 def capacityCalcul(time, current, n, charge):
+    """
+    capacityCalcul : create a list of capacity values from time and current values
+    
+    Parameters :    
+        time (list) : time values (s)
+        current (list) : current values (A)
+        n (int) : nomber of values
+        charge (bool) : either 1 or 0 (1 == charge values ; 0 == discharge values)
+    """
 
     capacity = []
 
@@ -468,16 +498,18 @@ def capacityCalcul(time, current, n, charge):
 ##################################################################################################
 
 #################################################
-"""
-capaFilter : Apply a filter in order to smooth the curve (y-axis)
-Parameters :    x & y : data
-                paramSmooth : percentage/100 for the smoothing (from 0 to 1)
-"""
-
 
 def capaFilter(x, y, param_smooth):
-    y_lowess = sm.nonparametric.lowess(
-        y, x, frac=param_smooth)  # xx% lowess smoothing
+        
+    """
+    capaFilter : Apply a filter in order to smooth the curve (y-axis)
+    
+    Parameters :
+        x & y (list) : data
+        paramSmooth (float between 0 and 1): percentage/100 for the smoothing
+    """
+    
+    y_lowess = sm.nonparametric.lowess(y, x, frac=param_smooth)  # xx% lowess smoothing
     df = pd.DataFrame(y_lowess)
     # Get the first column (voltage) of the Dataframe as a serie and convert it into a list
     y_new = df.iloc[:, 1].tolist()
@@ -487,32 +519,36 @@ def capaFilter(x, y, param_smooth):
 
 
 #################################################
-"""
-ICAFilter : Apply a filter in order to smooth the curve (y-axis)
-Parameters :    ICA : ICA data
-                window : lenght of the filter window, odd integer, usually 51 is good
-                order : order of the polynomial used to fit the samples
-"""
 
 
 def ICAFilter(ICA, window, order):
+    """
+    ICAFilter : Apply a filter in order to smooth the curve (y-axis)
+    
+    Parameters : 
+        ICA (list) : ICA data
+        window (int) : lenght of the filter window, odd integer, usually 51 is good
+        order (int) : order of the polynomial used to fit the samples
+    """
+
     y_sf = scipy.signal.savgol_filter(ICA, window, order)
 
     return y_sf
 
 
 #################################################
-"""
-plotICASeq : global function to filter the data and plot the ICA
-Parameters :    dic_dataSeq : dictionary of the data to plot
-"""
-
-
 def plotICASeq(dic_dataSeq):
+    """
+    plotICASeq : global function to filter the data and plot the ICA
+    
+    Parameters :    
+        dic_dataSeq (dict) : dictionary of the data to plot
+    """
+    
     legend = []
-    for i in [1, 2, 3]:
-        x = dic_dataSeq["V_c"][i]
-        y = dic_dataSeq["Q_c"][i]
+    for i in range(0,15):
+        x = dic_dataSeq["V_c"][i+1]
+        y = dic_dataSeq["Q_c"][i+1]
         x_new, y_new = capaFilter(x, y, 0.1)
 
         ICA, V = calculICA(x_new, y_new, 1)
