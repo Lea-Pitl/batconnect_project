@@ -9,11 +9,7 @@
 #                   IMPORT
 #################################################
 
-import Functions_PlotCurves as F_plot
-import matplotlib.pyplot as plt
-import numpy as np
-import pandas as pd
-
+from dataset_pkg import *
 
 #################################################
 #                   VARIABLES
@@ -29,11 +25,11 @@ file_title = '20210729_Cycle50A_LiFePO4_BATCONNECT_bat3_CA1.txt'
 #       LEA DATASET
 ########################
 
-dic_dataSet, nbCycle, nbSeq = F_plot.readFile(file_title)
+dic_dataSet, nbCycle, nbSeq = readFile(file_title)
 
 #F_plot.plotCurrentVoltage(dic_dataSet["time"], dic_dataSet["current"], dic_dataSet["voltage"])
 
-dic_dataCycle, dic_dataSeq = F_plot.sortData(dic_dataSet)
+dic_dataCycle, dic_dataSeq = sortData(dic_dataSet)
 # F_plot.plotVoltageCapacity(dic_dataSeq["V_c"][1],dic_dataSeq["Q_c"][1])
 
 # F_plot.plotICASeq(dic_dataSeq)
@@ -45,7 +41,7 @@ x = dic_dataSeq["T_c"][9]
 y1 = dic_dataSeq["V_c"][9]
 y2 = dic_dataSeq["Q_c"][9]
 
-#F_plot.plotCurve2yAxis(x, y1, y2, 'Charge capacity and battery voltage through time for one charge', F_plot.TIME_LABEL, F_plot.VOLTAGE_LABEL, F_plot.CAPACITY_LABEL)
+plotCurve2yAxis(x, y1, y2, 'Charge capacity and battery voltage through time for one charge', TIME_LABEL, VOLTAGE_LABEL, CAPACITY_LABEL)
 
 
-F_plot.percentageCapa(x, y1, y2)
+#percentageCapa(x, y1, y2)
