@@ -9,13 +9,13 @@
 #                   IMPORT
 #################################################
 
-from dataset_pkg import *
+from dataset_testbench_pkg import *
 
 #################################################
 #                   VARIABLES
 #################################################
 
-file_title = '20210729_Cycle50A_LiFePO4_BATCONNECT_bat3_CA1.txt'
+file_title = 'dataset_testbench_files/20210729_Cycle50A_LiFePO4_BATCONNECT_bat3_CA1.txt'
 
 #####################################################################
 #                           MAIN
