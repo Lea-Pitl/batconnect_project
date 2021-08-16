@@ -30,24 +30,3 @@ CURRENT = 4
 CHARGE = 5
 DISCHARGE = 6
 TEMPERATURE = 7
-
-
-#####################################################
-#               FOR BATCONNECT FILES
-#####################################################
-
-BAT_LINE_BEGIN = 20870
-BAT_LINE_END = 105965
-
-# columns of the CSV FILE HEADERS from the batconnect datafile
-BAT_ID = 0
-BAT_TIME = 1
-BAT_DATE = 2
-BAT_STATUS = 3
-BAT_LATITUDE = 4
-BAT_LONGITUDE = 5
-BAT_VOLTAGE = 6
-BAT_CHARGE = 7
-BAT_CURRENT = 8
-BAT_TEMPE_MIN = 17
-BAT_TEMPE_MAX = 16

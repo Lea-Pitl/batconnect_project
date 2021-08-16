@@ -9,8 +9,8 @@
 #                   IMPORT
 #################################################
 
-from functions_curves.dataset_testbench_pkg.Functions_BatconnectProcessing import readBatFile
 from dataset_testbench_pkg import *
+from dataset_batconnect_pkg import *
 
 #################################################
 #                   VARIABLES
@@ -28,7 +28,7 @@ file_title = 'Batconnect_files/batconnect_out_date.csv'
 
 dic_bat_dataSet = readBatFile(file_title)
 
-
-print(dic_bat_dataSet["time"])
+for i in range(0,100):
+    print(dic_bat_dataSet["time"][i])
 
 #plotCurve1yAxis()
