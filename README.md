@@ -3,7 +3,10 @@
 
 **Starting date :** 07/01/2021
 
-## Project :
+## Table of contents :
+1. [Project](#project)
+
+## Project : <a name="project"></a>
 The idea of this projet is to extract, sort the data, and plot different curves of LiFePO4 batteries.
 Those batteries are cycled on a test bench and the data are collected in a .txt file
 
