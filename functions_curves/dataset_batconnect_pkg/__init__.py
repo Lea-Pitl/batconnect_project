@@ -1,11 +1,11 @@
-################     LAAS STAGE      ################
+################     LAAS STAGE      ##############################################################
 # INIT FILE FOR THE BACTONNECT FUNCTIONS PACKAGE
 # Author : Léa Pitault
 # Date : 2021/08/16
-#####################################################
+###################################################################################################
 
 """
-Contains all the imports needed for the whole projet
+Contains all the imports needed to use the Batconnect functions package
 
 """
 

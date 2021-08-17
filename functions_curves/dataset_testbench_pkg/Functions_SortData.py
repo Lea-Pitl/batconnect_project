@@ -1,8 +1,8 @@
-################     LAAS STAGE      ################
-# Functions File to plot Curves from a csv file
+################     LAAS STAGE      ##############################################################
+# FUNCTION FILE TO SORT THE DATA
 # Author : Léa Pitault
 # Date : 2021/07/12
-#####################################################
+###################################################################################################
 
 from dataset_testbench_pkg import *
 import copy
@@ -10,14 +10,18 @@ import numpy as np
 import csv
 from .constants import *
 
+###################################################################################################
+
 #################################################
 
 
 def readFile(file_title):
     """
     readFile : Read a csv file and create lists from the different columns
+
     Parameters : 
         - file_title (str) : Title of the csv file to read
+
     Return :
         - dic_dataset (dict) : dictionary with the values from the csv file
         - nb_cycle (int) : number of cycle
@@ -77,11 +81,16 @@ def readFile(file_title):
 
 
 #################################################
+
 def sortData(dataset):
     """
-    sortData : create sublists from the datas depending on the cycle and the sequence
+    sortData : create ditctionnary from the datas depending on the cycle and the sequence
+
     Parameters : 
-        - dataset (dict) : dictionary  
+        - dataset (dict) : dictionary of the different useful values
+        The values in the dic are the columns values of the initial dataset file
+
+
     Return :    
         - dic_data_cycle (dict) : dictionary with the data sorted by cycles (both charge and discharge)
         - dic_data_seq (dict) : dictionary with the data sorted by sequences (charge OR discharge)

@@ -1,5 +1,5 @@
 ################     LAAS STAGE      ##############################################################
-# File with all the useful constants for the BATCONNECT Dataset
+# CONSTANTS FILE FOR THE BATCONNECT DATASET
 # Author : Léa Pitault
 # Date : 2021/08/16
 ###################################################################################################

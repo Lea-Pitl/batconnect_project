@@ -1,5 +1,5 @@
 ################     LAAS STAGE      ##############################################################
-# File with all the useful constants
+# CONSTANTS FILE FOR THE TESTBENCH DATASET
 # Author : Léa Pitault
 # Date : 2021/08/05
 ###################################################################################################
