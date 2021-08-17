@@ -12,6 +12,7 @@
 from dataset_testbench_pkg import *
 from dataset_batconnect_pkg import *
 
+
 #################################################
 #                   VARIABLES
 #################################################
@@ -26,9 +27,12 @@ file_title = 'Batconnect_files/batconnect_out_date.csv'
 #       BATCONNECT DATASET
 ################################
 
-dic_bat_dataSet = readBatFile(file_title)
+dic_bat_dataSet, line, data_line = readBatFile(file_title)
 
-for i in range(0,100):
-    print(dic_bat_dataSet["time"][i])
-
-#plotCurve1yAxis()
+# dic_bat_dataSet["date"]=date
+#x, y = sortBatData(dic_bat_dataSet, data_line)
+# print(dic_bat_dataSet["date"])
+#plotCurve1yAxis(x, y, BAT_TIME_LABEL, BAT_VOLTAGE_LABEL, 'blue', 1)
+plt.title("Voltage of the total 16 cells in function of time")
+plt.legend()
+plt.show()

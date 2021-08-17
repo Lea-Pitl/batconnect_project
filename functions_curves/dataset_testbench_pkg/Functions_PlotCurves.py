@@ -32,19 +32,24 @@ def plotShow():
 #################################################
 
 
-def plotCurve1yAxis(x, y, xlabel, ylabel, color):
+def plotCurve1yAxis(x, y, xlabel, ylabel, color, bat_data):
     """
     plotCurve2yAxis : Plot a curve from parameters x and one y axis
 
     Parameters :
         - x (list) and y (list) : Data to plot
-        - title (str) : title of the graph
         - xlabel (str) and ylabel (str) : title of the axis
+        - color (str) : color of the dataset points
+        - bat_data (bool) : 0 -> testbench data
+                            1 -> batconnect data
     """
     plt.xlabel(xlabel)
     plt.ylabel(ylabel, color=color)
     plt.plot(x, y, color=color)  # , marker='o')
     plt.tick_params(axis='y', labelcolor=color)
+    if bat_data==1:
+        plt.xticks(rotation=45)
+
 
     plt.grid(linestyle='-', linewidth=0.5)
     # plt.title(title)
