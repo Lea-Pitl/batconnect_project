@@ -1,7 +1,9 @@
 # README : BATCONNECT PROJECT
 **Author :** Léa PITAULT
 
-**Starting date :** June 1st 2021
+**Tutors :** COorinne Alonso, Élodie Chanthery, Pauline Ribot (LAAS-CNRS) & Jérémy Dulout (BATCONNECT Company)
+
+**Internship starting date :** June 1st 2021
 
 <hr>
 
@@ -18,12 +20,18 @@
 ---
 
 ## Project : <a name="project"></a>
-The idea of this projet is to extract, sort the data, and plot different curves of LiFePO4 batteries.
+The goal of this projet is to study LiFePO4 batteries. The data are extracted from a testbench in the LAAS Laboratory or are given by the Batconnect company. The next section [Data file format](#data_file_format) presents the data format. 
+
+The code allows to sort the data and plot several curves (such as ICA (Incremental Capacity Analysis) VS Voltage)
+
+Type of batteries : LF105 3.2V 105Ah
 
 The data come from two different type of dataset : 
 
-1. The LAAS Testbench, the batteries are cycled under controlled conditions and the data are collected in a .txt file
+1. The LAAS Testbench, the batteries are cycled under controlled conditions and the data are collected in a file.txt 
 2. The BATCONNECT data, given in a file.csv
+
+<br>
 
 ---
 
@@ -31,11 +39,13 @@ The data come from two different type of dataset :
 
 * ### LAAS Testbench File
 
-.txt file with 8 columns
+file.txt with 8 columns
 
 Sequence number | time | cycle number | Voltage (V) | Current (mA) | Charge (m.Ah) | Discharge (m.Ah) | Cell external temperature (°C)
 
 * ### BATCONNECT File
+
+<br>
 
 ---
 
@@ -53,13 +63,16 @@ Sequence number | time | cycle number | Voltage (V) | Current (mA) | Charge (m.A
 
     - TO UPDATE
 
+<br>
+
 ---
 
 ## Usage : <a name="usage"></a>
 
----
+<br>
+
 ### To plot the ICA curves : <a name="plot_ica_curves"></a>
- - F_plot.readFile(fileTitle) : you get the whole dataset as lists with the data of the 8 columns. You also get the number of cycle and sequence
+ - F_plot.readFile(fileTitle) : you get the whole dataset as lists with the data of the 8 columns. You als get the number of cycle and sequence
  - F_plot.sortData(dic_dataSet) : you get a dictionary with the values in function of cycle or in function of sequences and charge or discharge
  - F_plot.plotICASeq(dic_dataSeq) : you plot the ICA curves after filtering
 
