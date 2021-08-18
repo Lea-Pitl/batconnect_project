@@ -32,6 +32,8 @@ The data come from two different type of dataset :
 2. The BATCONNECT data, given in a file.csv
 
 <br>
+<br>
+
 
 [comment]: <> (FOOTNOTES)
 
@@ -40,10 +42,8 @@ The data come from two different type of dataset :
 
 ---
 
-<br>
 
 ## Data file format : <a name="data_file_format"></a>
-<br>
 
 * ### **LAAS Testbench File**
 
@@ -61,7 +61,6 @@ The sequence number depends on the testbench used.
     - a discharge,
     - a rest.
 
-<br>
 
 * ### **BATCONNECT File**
 
@@ -85,21 +84,30 @@ Finally you get those columns :
 ---
 
 ## Files of the project : <a name="files"></a>
+<br>
 
-The project is actually separated into two different packages.
+The project is actually separated into two different packages. 
+- One for the files used to process the Batconnect dataset.
+- One for the files used to process the LAAS Testbench dataset.
 
-* ### BATCONNECT package
+<br>
 
-    - TO DO
+- ### **BATCONNECT package** :  `dataset_bactonnect_pkg`
+
+Acutally contains all the files and functions used to sort the Batconnect data. Some of the functions to plot curves are used from the testbench package.
     
-    <br>
-* ### TESTBENCH package
+<br>
 
-    - Functions_PlotCurves.py : contains all the useful functions to sort the data, plot curves, compute the ICA, filter the data and curves
-    - Main_dataMargot : main file using Margot dataset and LiNMC battery cell
-    - Main_dataLea : main file using Lea dataset and LiFePO4 battery cell
+- ### **TESTBENCH package** : `dataset_testbench_pkg` 
 
-    - TO UPDATE
+Contains all the files and functions used to sort the testbench data, filter them, make computation and plot data curves.
+
+- ### **OUT OF THE PACKAGES** 
+
+    - Main_dataMargot : main file using Margot dataset and LiNMC battery cell.
+    - Main_dataLea : main file using Lea dataset and LiFePO4 battery cell.
+    - Main_dataBatconnect : main file usinf Batconnect dataset and LiFePO4 battery cell.
+
 
 <br>
 

@@ -9,7 +9,7 @@
 #                   IMPORTS
 #################################################
 
-from dataset_testbench_pkg.Functions_PlotCurves import *
+from utilities_pkg import *
 from dataset_batconnect_pkg.bat_constants import *
 from dataset_batconnect_pkg import *
 from dataset_testbench_pkg import *

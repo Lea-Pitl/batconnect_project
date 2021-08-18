@@ -9,7 +9,7 @@
 #                   IMPORTS
 #################################################
 
-from dataset_testbench_pkg.Functions_PlotCurves import plotCurve2yAxis
+from utilities_pkg import *
 from dataset_testbench_pkg import *
 
 #################################################
@@ -28,15 +28,15 @@ file_title = 'dataset_testbench_files/20210729_Cycle50A_LiFePO4_BATCONNECT_bat3_
 
 dic_dataSet, nbCycle, nbSeq = readFile(file_title)
 
-#F_plot.plotCurrentVoltage(dic_dataSet["time"], dic_dataSet["current"], dic_dataSet["voltage"])
+# plotCurrentVoltage(dic_dataSet["time"], dic_dataSet["current"], dic_dataSet["voltage"])
 
 dic_dataCycle, dic_dataSeq = sortData(dic_dataSet)
-# F_plot.plotVoltageCapacity(dic_dataSeq["V_c"][1],dic_dataSeq["Q_c"][1])
+# plotVoltageCapacity(dic_dataSeq["V_c"][1],dic_dataSeq["Q_c"][1], 0)
 
-# F_plot.plotICASeq(dic_dataSeq)
+# plotTestbenchICASeq(dic_dataSeq)
 title = 'Capacity of 15 cycles in function of voltage'
 
-#F_plot.plotOverlaidCurves(dic_dataSeq, "V_c", "Q_c", F_plot.VOLTAGE_LABEL, F_plot.CAPACITY_LABEL, title, 15)
+#plotTestbenchOverlaidCurves(dic_dataSeq, "V_c", "Q_c", VOLTAGE_LABEL, CAPACITY_LABEL, title, 15)
 
 x = dic_dataSeq["T_c"][9]
 y1 = dic_dataSeq["V_c"][9]

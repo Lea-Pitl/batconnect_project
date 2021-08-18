@@ -1,11 +1,12 @@
 ################     LAAS STAGE      ##############################################################
-# INIT FILE FOR THE BACTONNECT FUNCTIONS PACKAGE
+# INIT FILE FOR THE UTILITIES FUNCTIONS PACKAGE
 # Author : Léa Pitault
-# Date : 2021/08/16
+# Date : 2021/08/18
 ###################################################################################################
 
+
 """
-Contains all the imports needed to use the Batconnect functions package
+Contains all the imports needed to use the utilities functions
 
 """
 
@@ -13,6 +14,4 @@ Contains all the imports needed to use the Batconnect functions package
 #   FILE IMPORT
 ###########################
 
-from .Functions_BatconnectSortData import *
-
-
+from .Utilities_PlotCurves import *

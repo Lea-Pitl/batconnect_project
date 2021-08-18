@@ -14,13 +14,11 @@ Contains all the imports needed for the whole projet
 #   FILE IMPORT
 ###########################
 
-from .Functions_SortData import *
+from .Functions_TestbenchSortData import *
 
-from .Functions_PlotCurves import *
+from .Functions_TestbenchPlotCurves import *
 
-from .Functions_ComputeData import *
+from .Functions_TestbenchComputeData import *
 
-from .Functions_Filter import *
-
-from .Functions_SortData import *
+from .Functions_TestbenchFilter import *
 
