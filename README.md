@@ -22,7 +22,7 @@
 ## Project : <a name="project"></a>
 The goal of this projet is to study LiFePO4 batteries. The data are extracted from a testbench in the LAAS Laboratory or are given by the Batconnect company. The next section [Data file format](#data_file_format) presents the data format. 
 
-The code allows to sort the data and plot several curves (such as ICA [^1] VS Voltage)
+The code allows to sort the data and plot several curves (such as ICA<sup>[1](#1)</sup>  VS Voltage)
 
 Type of batteries : LF105 3.2V 105Ah
 
@@ -33,30 +33,61 @@ The data come from two different type of dataset :
 
 <br>
 
+[comment]: <> (FOOTNOTES)
+
+<a name="1">1</a> : Incremental Capacity Analysis
+
+
 ---
 
-[^1]: Incremental Capacity Analysis
+<br>
 
 ## Data file format : <a name="data_file_format"></a>
+<br>
 
-* ### LAAS Testbench File
+* ### **LAAS Testbench File**
 
 file.txt with 8 columns
 
 *Example :*
-| Sequence number  | time (s) | cycle number | Voltage (V) | Current (mA) | Charge (m.Ah)  | Discharge (m.Ah) | Cell external temperature (°C) |
+| Sequence number | time (s) | cycle number | Voltage (V) | Current (mA) | Charge (m.Ah)  | Discharge (m.Ah) | Cell external temperature (°C) |
 |:----:|:----:|:----:|:----:|:----:|:----:|:----:|:----:|
 | 0  | 3.30  | 0 | 3.2196 | -4999.7 | 0 |  416.64 | 25.061 |
 
-The sequence number depends on the testbench used. A sequence can either corresponds to a CC Charge, a CV charge, a discharge or a rest.
+The sequence number depends on the testbench used. 
+- A sequence can either corresponds to :
+    - a CC charge, 
+    - a CV charge, 
+    - a discharge,
+    - a rest.
 
-* ### BATCONNECT File
+<br>
+
+* ### **BATCONNECT File**
+
+csv.file with 23 columns
+
+Not all the columns are useful. 
+With the functions `readBatFile(file_title, line_begin, line_end)` you select only 10 columns and it stores the values of each in a dictionnary.
+
+Finally you get those columns :
+
+*Example :*
+
+| ID | time (timestamp) | Status | Latitude (nmea) | Longitude (nmea) | voltage (V)  | Charge (SOC %) | Current (A) | Minimal temperature (°C) | Maximale temperature (°C)
+|:----:|:----:|:----:|:----:|:----:|:----:|:----:|:----:|:----:|:----:|
+| 862000000000000 | 1626723717 | 0 | 5034.897949 | 5034.897949 | 54.30 | 100.0 | 0.00 | 30.00 | 31.00
+
+
 
 <br>
 
 ---
 
 ## Files of the project : <a name="files"></a>
+
+The project is actually separated into two different packages.
+
 * ### BATCONNECT package
 
     - TO DO
