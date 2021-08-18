@@ -22,7 +22,7 @@
 ## Project : <a name="project"></a>
 The goal of this projet is to study LiFePO4 batteries. The data are extracted from a testbench in the LAAS Laboratory or are given by the Batconnect company. The next section [Data file format](#data_file_format) presents the data format. 
 
-The code allows to sort the data and plot several curves (such as ICA (Incremental Capacity Analysis) VS Voltage)
+The code allows to sort the data and plot several curves (such as ICA [^1] VS Voltage)
 
 Type of batteries : LF105 3.2V 105Ah
 
@@ -35,13 +35,20 @@ The data come from two different type of dataset :
 
 ---
 
+[^1]: Incremental Capacity Analysis
+
 ## Data file format : <a name="data_file_format"></a>
 
 * ### LAAS Testbench File
 
 file.txt with 8 columns
 
-Sequence number | time | cycle number | Voltage (V) | Current (mA) | Charge (m.Ah) | Discharge (m.Ah) | Cell external temperature (°C)
+*Example :*
+| Sequence number  | time (s) | cycle number | Voltage (V) | Current (mA) | Charge (m.Ah)  | Discharge (m.Ah) | Cell external temperature (°C) |
+|:----:|:----:|:----:|:----:|:----:|:----:|:----:|:----:|
+| 0  | 3.30  | 0 | 3.2196 | -4999.7 | 0 |  416.64 | 25.061 |
+
+The sequence number depends on the testbench used. A sequence can either corresponds to a CC Charge, a CV charge, a discharge or a rest.
 
 * ### BATCONNECT File
 
