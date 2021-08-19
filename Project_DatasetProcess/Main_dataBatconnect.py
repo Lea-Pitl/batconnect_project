@@ -42,12 +42,13 @@ nb = getNumberOfIDsFromDict(dic_dataset_sort_id)
 print("dic_dataset_sort_id --> ID1 : ", IDs[0], " ; voltage: ", len(
     dic_dataset_sort_id[IDs[0]]["voltage"]))
 
+Current_id=IDs[0]
 
-x1 = dic_dataset_sort_id[IDs[1]]["date"]
-y1 = dic_dataset_sort_id[IDs[1]]["voltage"]
+x1 = dic_dataset_sort_id[Current_id]["date"]
+y1 = dic_dataset_sort_id[Current_id]["voltage"]
 
-x2 = dic_dataset_sort_id[IDs[1]]["date"]
-y2 = dic_dataset_sort_id[IDs[1]]["charge"]
+x2 = dic_dataset_sort_id[Current_id]["date"]
+y2 = dic_dataset_sort_id[Current_id]["charge"]
 
 title1 = 'Voltage of the total 16 cells for one battery in function of time'
 title2 = 'State of charge of the battery in function of time'
