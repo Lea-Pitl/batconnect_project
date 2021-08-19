@@ -9,6 +9,7 @@
 #                   IMPORTS
 #################################################
 
+from Project_DatasetProcess.dataset_batconnect_pkg.Functions_BatconnectSortData import getIDBatteries
 from utilities_pkg import *
 from dataset_batconnect_pkg.bat_constants import *
 from dataset_batconnect_pkg import *
@@ -29,11 +30,14 @@ file_title = 'Batconnect_files/batconnect_out_date.csv'
 #       BATCONNECT DATASET
 ################################
 
-dic_bat_dataSet, line, data_line = readBatFile(file_title, BAT_LINE_BEGIN, BAT_LINE_END)
+dic_bat_dataSet, line, data_line = readBatFile(
+    file_title, BAT_LINE_BEGIN, BAT_LINE_END)
 
 # dic_bat_dataSet["date"]=date
 
-dic_dataset_id = sortBatData(dic_bat_dataSet, data_line)
+dic_dataset_id, dic_bat_not_ok = sortBatDataByValues(dic_bat_dataSet, data_line)
+
+print("len status not 0 : ", len(dic_bat_not_ok["voltage"][1]))
 
 x1 = dic_dataset_id["date"][0]
 y1 = dic_dataset_id["voltage"][0]

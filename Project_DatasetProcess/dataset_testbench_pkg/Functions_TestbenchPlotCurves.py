@@ -53,16 +53,17 @@ def plotTestbenchOverlaidCurves(dic_data, x_str, y_str, x_label, y_label, title,
 #################################################
 
 
-def plotTestbenchICASeq(dic_dataSeq):
+def plotTestbenchICASeq(dic_dataSeq, nb_cycle):
     """
     plotTestbenchICASeq : global function to filter the data and plot the ICA
 
     Parameters :    
         - dic_dataSeq (dict) : dictionary of the data to plot
+        - nb_cycle (int) : number of cycle to plot
     """
 
     legend = []
-    for i in range(0, 15):
+    for i in range(0, nb_cycle):
         x = dic_dataSeq["V_c"][i+1]
         y = dic_dataSeq["Q_c"][i+1]
         x_new, y_new = capaFilter(x, y, 0.1)

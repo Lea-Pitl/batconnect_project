@@ -118,7 +118,7 @@ def sortBatDatav1(dic_bat_dataset, nb_line):
 #################################################
 
 
-def sortBatData(dic_bat_dataset, nb_line):
+def sortBatDataByValues(dic_bat_dataset, nb_line):
     """
     sortBatData : sort the batconnect dataset values in a dictionnary
 
@@ -142,12 +142,22 @@ def sortBatData(dic_bat_dataset, nb_line):
     charge = []
     current = []
     timestamp = []
+
+    timestamp_diff = []
+    voltage_diff = []
+    charge_diff = []
+    current_diff = []
+    latitude_diff = []
+    longitude_diff = []
+
     nb_status_not_OK = 0
 
-    id_unique = np.unique(dic_bat_dataset["id"])
+    id_unique = getIDBatteries(dic_bat_dataset)
 
-    print("type id_unique : ", type(id_unique))
+    #print("type id_unique : ", type(id_unique))
     for k in range(len(id_unique)):
+
+        dic_dataset_id = {}
 
         date.append([])
         timestamp.append([])
@@ -155,7 +165,16 @@ def sortBatData(dic_bat_dataset, nb_line):
         charge.append([])
         current.append([])
 
-        print(id_unique[k])
+        dic_bat_status_not_OK = {}
+
+        timestamp_diff.append([])
+        voltage_diff.append([])
+        charge_diff.append([])
+        current_diff.append([])
+        latitude_diff.append([])
+        longitude_diff.append([])
+
+        #print(id_unique[k])
 
         for i in range(nb_line):
 
@@ -167,12 +186,16 @@ def sortBatData(dic_bat_dataset, nb_line):
                 charge[k].append(dic_bat_dataset["charge"][i])
                 current[k].append(dic_bat_dataset["current"][i])
 
-                """if dic_bat_dataset["status"][i] != 0:
-                    print("date :", dic_bat_dataset["time"][i], "  ;  status :", dic_bat_dataset["status"][i],
-                          "  ;  voltage :", dic_bat_dataset["voltage"][i], "  ;  id :", dic_bat_dataset["id"][i])
-                    nb_status_not_OK += 1"""
+                if dic_bat_dataset["status"][i] != 0:
 
-    dic_dataset_id = {}
+                    timestamp_diff[k].append(dic_bat_dataset["time"][i])
+                    voltage_diff[k].append(dic_bat_dataset["voltage"][i])
+                    charge_diff[k].append(dic_bat_dataset["charge"][i])
+                    current_diff[k].append(dic_bat_dataset["current"][i])
+                    latitude_diff[k].append(dic_bat_dataset["latitude"][i])
+                    longitude_diff[k].append(dic_bat_dataset["longitude"][i])
+                    nb_status_not_OK += 1
+
     dic_dataset_id["voltage"] = voltage
     dic_dataset_id["current"] = current
     dic_dataset_id["charge"] = charge
@@ -180,4 +203,30 @@ def sortBatData(dic_bat_dataset, nb_line):
     dic_dataset_id["date"] = date
     dic_dataset_id["id_unique"] = id_unique
 
-    return dic_dataset_id
+    dic_bat_status_not_OK["voltage"] = voltage_diff
+    dic_bat_status_not_OK["current"] = current_diff
+    dic_bat_status_not_OK["charge"] = charge_diff
+    dic_bat_status_not_OK["timestamp"] = timestamp_diff
+    dic_bat_status_not_OK["latitude"] = latitude_diff
+    dic_bat_status_not_OK["longitude"] = longitude_diff
+
+    return dic_dataset_id, dic_bat_status_not_OK
+
+
+#################################################
+
+
+def getIDBatteries(dic_bat_dataset):
+    """
+    getIDBatteries : give the list of the batteries ID of the Batconenct dataset
+
+    Parameters : 
+        - dic_bat_dataset (dict) : the dictionnary of values given by readBatFile
+        
+    Return : 
+        - id_unique (numpy.ndarray) : array with all the different battery IDs
+    """
+
+    id_unique = np.unique(dic_bat_dataset["id"])
+    
+    return id_unique
