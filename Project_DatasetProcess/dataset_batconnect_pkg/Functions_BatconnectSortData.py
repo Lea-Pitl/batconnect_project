@@ -12,10 +12,88 @@ import numpy as np
 
 ###################################################################################################
 
+
+
 #################################################
 
+def read_sortBatFile(file_title, line_begin, line_end):
+    """
+    read_sortBatFile :  Read a csv file and create lists from the different columns
+    Those lists go in a dictionnary with two keys : the id the battery and the wanted values (voltage, current, ...)
 
-def readBatFile(file_title, line_begin, line_end):
+    Parameters :
+        - file_title (str) : Title of the csv file to read
+        - line_begin (int) : lower line interval limit
+        - line_end (int) : upper line interval limit
+
+    Return : 
+        - dic_bat_dataset (dict) : dictionary with the values from the csv file
+        - line_count (int) : total number of line in the file
+        - nb_data_line (int) : total number of line that are treated and stored in the dictionnary \n  
+        All the line are not stored, we specify the interval to be processed
+
+    """
+
+    dic_bat_dataset = {}
+
+    with open(file_title, mode='r') as csvfile:
+        file = csv.reader(csvfile, delimiter=';')
+        line_count = 0
+        for row in file:
+            columns = len(row)
+            for i in range(columns):
+                row[i] = row[i].replace(',', '.')
+            if line_count == 0:
+                print(f'Columns headers are {", ".join(row)}')
+            elif line_count > line_begin and line_count < line_end:
+                if (row[BAT_VOLTAGE] != '') and (row[BAT_TEMPE_MIN] != '') and (row[BAT_LATITUDE] != '') and (row[BAT_CHARGE] != '') and (row[BAT_CURRENT] != ''):
+
+                    if not(row[BAT_ID] in dic_bat_dataset):
+                        dic_bat_dataset[row[BAT_ID]] = {}
+                        
+                        dic_bat_dataset[row[BAT_ID]]["time"] = []
+                        dic_bat_dataset[row[BAT_ID]]["date"] = []
+                        dic_bat_dataset[row[BAT_ID]]["status"] = []
+                        dic_bat_dataset[row[BAT_ID]]["latitude"] = []
+                        dic_bat_dataset[row[BAT_ID]]["longitude"] = []
+                        dic_bat_dataset[row[BAT_ID]]["voltage"] = []
+                        dic_bat_dataset[row[BAT_ID]]["charge"] = []
+                        dic_bat_dataset[row[BAT_ID]]["current"] = []
+                        dic_bat_dataset[row[BAT_ID]]["tempe_min"] = []
+                        dic_bat_dataset[row[BAT_ID]]["tempe_max"] = []
+
+
+                    dic_bat_dataset[row[BAT_ID]]["time"].append(float(row[BAT_TIME]))
+                    dic_bat_dataset[row[BAT_ID]]["date"].append(datetime.fromtimestamp(float(row[BAT_TIME])))
+                    dic_bat_dataset[row[BAT_ID]]["status"].append(float(row[BAT_STATUS]))
+                    dic_bat_dataset[row[BAT_ID]]["latitude"].append(float(row[BAT_LATITUDE]))
+                    dic_bat_dataset[row[BAT_ID]]["longitude"].append(float(row[BAT_LONGITUDE]))
+                    dic_bat_dataset[row[BAT_ID]]["voltage"].append(float(row[BAT_VOLTAGE]))
+                    dic_bat_dataset[row[BAT_ID]]["charge"].append(float(row[BAT_CHARGE]))
+                    dic_bat_dataset[row[BAT_ID]]["current"].append(float(row[BAT_CURRENT]))
+                    dic_bat_dataset[row[BAT_ID]]["tempe_min"].append(float(row[BAT_TEMPE_MIN]))
+                    dic_bat_dataset[row[BAT_ID]]["tempe_max"].append(float(row[BAT_TEMPE_MAX]))
+
+            line_count += 1
+
+    return dic_bat_dataset
+
+#################################################
+
+def getIDBatteriesFromDict(dic_dataset_sort_id):
+    IDs = list(dic_dataset_sort_id.keys())
+    return IDs
+
+#################################################
+
+def getNumberOfIDsFromDict(dic_dataset_sort_id):
+    nb=len(list(dic_dataset_sort_id))
+    return nb
+
+#################################################
+
+    
+#def readBatFile(file_title, line_begin, line_end):
     """
     readBatFile :  Read a csv file and create lists from the different columns
     Those lists go in a dictionnary
@@ -86,39 +164,7 @@ def readBatFile(file_title, line_begin, line_end):
     return dic_bat_dataset, line_count, nb_data_line
 
 
-#################################################
-"""
-def sortBatDatav1(dic_bat_dataset, nb_line):
-
-    date = []
-    y_data = []
-    timestamp = []
-    nb_line_ID1 = 0
-    nb_status_not_OK = 0
-
-    id_unique = np.unique(dic_bat_dataset["id"])
-
-    for i in range(nb_line):
-        if dic_bat_dataset["id"][i] != ID_BAT1:
-            print("timestamp bad id ", dic_bat_dataset["time"][i])
-        else:
-            timestamp.append(dic_bat_dataset["time"][i])
-            date.append(datetime.fromtimestamp(dic_bat_dataset["time"][i]))
-            y_data.append(dic_bat_dataset["voltage"][i])
-            nb_line_ID1 += 1
-
-            if dic_bat_dataset["status"][i] != 0:
-                print("date :", dic_bat_dataset["time"][i], "  ;  status :", dic_bat_dataset["status"][i],
-                      "  ;  voltage :", dic_bat_dataset["voltage"][i], "  ;  id :", dic_bat_dataset["id"][i])
-                nb_status_not_OK += 1
-
-    return date, y_data, nb_line_ID1  # , nb_status_not_OK
-"""
-
-#################################################
-
-
-def sortBatDataByValues(dic_bat_dataset, nb_line):
+#def sortBatDataByValues(dic_bat_dataset, nb_line):
     """
     sortBatData : sort the batconnect dataset values in a dictionnary
 
@@ -174,7 +220,7 @@ def sortBatDataByValues(dic_bat_dataset, nb_line):
         latitude_diff.append([])
         longitude_diff.append([])
 
-        #print(id_unique[k])
+        # print(id_unique[k])
 
         for i in range(nb_line):
 
@@ -211,22 +257,3 @@ def sortBatDataByValues(dic_bat_dataset, nb_line):
     dic_bat_status_not_OK["longitude"] = longitude_diff
 
     return dic_dataset_id, dic_bat_status_not_OK
-
-
-#################################################
-
-
-def getIDBatteries(dic_bat_dataset):
-    """
-    getIDBatteries : give the list of the batteries ID of the Batconenct dataset
-
-    Parameters : 
-        - dic_bat_dataset (dict) : the dictionnary of values given by readBatFile
-        
-    Return : 
-        - id_unique (numpy.ndarray) : array with all the different battery IDs
-    """
-
-    id_unique = np.unique(dic_bat_dataset["id"])
-    
-    return id_unique
