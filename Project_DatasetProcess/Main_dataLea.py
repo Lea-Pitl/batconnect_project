@@ -33,16 +33,16 @@ dic_dataSet, nbCycle, nbSeq = readFile(file_title)
 dic_dataCycle, dic_dataSeq = sortData(dic_dataSet)
 #plotVoltageCapacity(dic_dataSeq["V_c"][1],dic_dataSeq["Q_c"][1], 0)
 
-plotTestbenchICASeq(dic_dataSeq, 15)
+#plotTestbenchICASeq(dic_dataSeq, 15)
 #title = 'Capacity of 15 cycles in function of voltage'
 
 #plotTestbenchOverlaidCurves(dic_dataSeq, "V_c", "Q_c", VOLTAGE_LABEL, CAPACITY_LABEL, title, 15)
 
-#x = dic_dataSeq["T_c"][9]
-#y1 = dic_dataSeq["V_c"][9]
-#y2 = dic_dataSeq["Q_c"][9]
+x = dic_dataSeq["T_c"][9]
+y1 = dic_dataSeq["V_c"][9]
+y2 = dic_dataSeq["Q_c"][9]
 
 #plotCurve2yAxis(x, y1, y2, 'Charge capacity and battery voltage through time for one charge', TIME_LABEL, VOLTAGE_LABEL, CAPACITY_LABEL)
 
 
-#percentageCapa(x, y1, y2)
+percentageCapa(x, y1, y2)

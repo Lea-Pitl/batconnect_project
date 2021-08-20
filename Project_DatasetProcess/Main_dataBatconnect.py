@@ -42,16 +42,18 @@ nb = getNumberOfIDsFromDict(dic_dataset_sort_id)
 print("dic_dataset_sort_id --> ID1 : ", IDs[0], " ; voltage: ", len(
     dic_dataset_sort_id[IDs[0]]["voltage"]))
 
-Current_id=IDs[0]
+current_id=IDs[1]
 
-x1 = dic_dataset_sort_id[Current_id]["date"]
-y1 = dic_dataset_sort_id[Current_id]["voltage"]
+print("Actual ID of the battery studied : ", current_id)
 
-x2 = dic_dataset_sort_id[Current_id]["date"]
-y2 = dic_dataset_sort_id[Current_id]["charge"]
+x1 = dic_dataset_sort_id[current_id]["date"]
+y1 = dic_dataset_sort_id[current_id]["voltage"]
 
-title1 = 'Voltage of the total 16 cells for one battery in function of time'
-title2 = 'State of charge of the battery in function of time'
+x2 = dic_dataset_sort_id[current_id]["date"]
+y2 = dic_dataset_sort_id[current_id]["charge"]
+
+title1 = 'Voltage of the total 16 cells for battery ID=8.62E+14 in function of time'
+title2 = 'State of charge of battery ID=8.62E+14 in function of time'
 
 plotCurves(x1, x2, y1, y2, BAT_TIME_LABEL, BAT_VOLTAGE_LABEL,
           BAT_TIME_LABEL, BAT_CAPACITY_LABEL, title1, title2, '.')
