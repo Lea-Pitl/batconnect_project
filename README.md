@@ -125,7 +125,7 @@ Contains all the files and functions used to sort the testbench data, filter the
 ICA curves are plotted using the **charge** values
 
 ---
-### Minimal main example : <a name="mini_example"></a>
+### Minimal main example for LAAS Testbench : <a name="mini_example_testbench"></a>
 ```python
 import Functions_PlotCurves as F_plot
 
@@ -135,6 +135,45 @@ dic_dataSet, nbCycle, nbSeq = F_plot.readFile(file_title)
 dic_dataCycle, dic_dataSeq = F_plot.sortData(dic_dataSet)
 F_plot.plotICASeq(dic_dataSeq)
 ```
+
+### Minimal main example for BATCONNECT data : <a name="mini_example_batconnect"></a>
+
+```python
+from dataset_batconnect_pkg.Functions_BatconnectSortData import *
+from utilities_pkg import *
+from dataset_batconnect_pkg.bat_constants import *
+from dataset_batconnect_pkg import *
+from dataset_testbench_pkg import *
+
+file_title = 'Batconnect_files/batconnect_out_date.csv'
+
+#Sort the data in a dictionnary of dictionnary : dict[id][measure]
+dic_dataset_sort_id = read_sortBatFile(
+    file_title, BAT_LINE_BEGIN, BAT_LINE_END)
+
+#Get a list of all the different battery ID
+IDs = getIDBatteriesFromDict(dic_dataset_sort_id)
+
+current_id=IDs[1]
+
+print("Current ID of the studied battery : ", current_id, " ; voltage: ", len(
+    dic_dataset_sort_id[current_id]["voltage"]))
+
+# Data of the axes of the first graph
+x1 = dic_dataset_sort_id[current_id]["date"]
+y1 = dic_dataset_sort_id[current_id]["voltage"]
+title1 = 'Voltage of the total 16 cells for battery ID=8.62E+14 in function of time'
+
+# Data of the axes of the second graph
+x2 = dic_dataset_sort_id[current_id]["date"]
+y2 = dic_dataset_sort_id[current_id]["charge"]
+title2 = 'State of charge of battery ID=8.62E+14 in function of time'
+
+#Plot two different graphs with the data
+plotCurves(x1, x2, y1, y2, BAT_TIME_LABEL, BAT_VOLTAGE_LABEL,
+          BAT_TIME_LABEL, BAT_CAPACITY_LABEL, title1, title2, '.')
+```
+
 
 <hr>
 

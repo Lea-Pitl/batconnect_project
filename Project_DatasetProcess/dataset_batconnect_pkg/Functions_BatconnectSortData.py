@@ -19,19 +19,15 @@ import numpy as np
 def read_sortBatFile(file_title, line_begin, line_end):
     """
     read_sortBatFile :  Read a csv file and create lists from the different columns
-    Those lists go in a dictionnary with two keys : the id the battery and the wanted values (voltage, current, ...)
+    Those lists go in a dictionnary with two keys : the battery id and the wanted measures (voltage, current, ...)
 
     Parameters :
         - file_title (str) : Title of the csv file to read
-        - line_begin (int) : lower line interval limit
-        - line_end (int) : upper line interval limit
+        - line_begin (int) : lower line interval limit of the csv file to read
+        - line_end (int) : upper line interval limit of the csv file to read
 
     Return : 
         - dic_bat_dataset (dict) : dictionary with the values from the csv file
-        - line_count (int) : total number of line in the file
-        - nb_data_line (int) : total number of line that are treated and stored in the dictionnary \n  
-        All the line are not stored, we specify the interval to be processed
-
     """
 
     dic_bat_dataset = {}
@@ -81,18 +77,42 @@ def read_sortBatFile(file_title, line_begin, line_end):
 #################################################
 
 def getIDBatteriesFromDict(dic_dataset_sort_id):
+    """
+    getIDBatteriesFromDict : get the list of the batteri IDs
+
+    Parameters :
+        - dic_dataset_sort_id (dict) : dictionnary of the sorted values given by the read_sortBatFile() function
+        
+    Return : 
+        - IDs (list) : list of the battery IDs
+    """
     IDs = list(dic_dataset_sort_id.keys())
     return IDs
 
 #################################################
 
 def getNumberOfIDsFromDict(dic_dataset_sort_id):
+    """
+    getIDBatteriesFromDict : get the list of the batteri IDs
+
+    Parameters :
+        - dic_dataset_sort_id (dict) : dictionnary of the sorted values given by the read_sortBatFile() function
+        
+    Return : 
+        - nb (int) : number of different battery IDs (equals number of different batteries)
+    """
     nb=len(list(dic_dataset_sort_id))
     return nb
 
 #################################################
 
-    
+
+###################################################################################################
+###################################################################################################
+#                                A SUPPRIMER _ BROUILLON
+###################################################################################################
+###################################################################################################
+
 #def readBatFile(file_title, line_begin, line_end):
     """
     readBatFile :  Read a csv file and create lists from the different columns

@@ -15,4 +15,6 @@ Contains all the imports needed to use the Batconnect functions package
 
 from .Functions_BatconnectSortData import *
 
+from .Functions_BatconnectPlotCurves import *
+
 
