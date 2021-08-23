@@ -96,9 +96,7 @@ def sortData(dataset):
         - dic_data_seq (dict) : dictionary with the data sorted by sequences (charge OR discharge)
     """
 
-    print('         ################################ \n '
-          'Sort data according to the cycles and the sequences \n'
-          '         ################################')
+    
     j = 0
     while j < len(dataset["cycles"]):
         dataset["cycles"][j] = int(dataset["cycles"][j])

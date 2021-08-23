@@ -136,6 +136,49 @@ dic_dataCycle, dic_dataSeq = F_plot.sortData(dic_dataSet)
 F_plot.plotICASeq(dic_dataSeq)
 ```
 
+### Minimal main example for LAAS Testbench to plot voltage/time overlaid curves : <a name="mini_example_testbench_overlaid_voltage_curves"></a>
+```python 
+
+file_title2 = 'dataset_testbench_files/20210817_Cycle50A_12deg_LiFePO4_BATCONNECT_bat1_CA1.txt'
+
+dic_dataSet1, nbCycle1, nbSeq1 = readFile(file_title2)
+
+dic_dataCycle1, dic_dataSeq1 = sortData(dic_dataSet1)
+
+title = 'Voltage of 15 cycles in function of time for Bat1 at 12°C (50A/30A)'
+
+plotTestbenchOverlaidCurves(dic_dataCycle1, "t_cycle", "v_cycle", VOLTAGE_LABEL, CAPACITY_LABEL, title, 15)
+```
+
+```python
+dic_dataSet1, nbCycle1, nbSeq1 = readFile(file_title1)
+dic_dataSet2, nbCycle2, nbSeq2 = readFile(file_title2)
+
+dic_dataCycle1, dic_dataSeq1 = sortData(dic_dataSet1)
+dic_dataCycle2, dic_dataSeq2 = sortData(dic_dataSet2)
+bat_data = 0
+current_cycle = 10
+
+##########
+# plot a voltage/capacity curve for 12°C and 25°C on one figure
+##########
+voltage1 = dic_dataSeq1["V_c"][current_cycle]
+capacity1 = dic_dataSeq1["Q_c"][current_cycle]
+voltage2 = dic_dataSeq2["V_c"][current_cycle]
+capacity2 = dic_dataSeq2["Q_c"][current_cycle]
+
+plotCurve1yAxis(voltage1, capacity1, VOLTAGE_LABEL,
+                CAPACITY_LABEL, 'green', bat_data, '25°C')
+plotCurve1yAxis(voltage2, capacity2, VOLTAGE_LABEL,
+                CAPACITY_LABEL, 'orange', bat_data, '12°C')
+
+
+plt.title(
+    'Capacity in function of voltage for one charge for two different temperatures')
+plt.grid(linestyle='-', linewidth=0.5)
+plotShow()
+```
+
 ### Minimal main example for BATCONNECT data : <a name="mini_example_batconnect"></a>
 
 ```python

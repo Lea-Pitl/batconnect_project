@@ -8,7 +8,7 @@
 
 ###################################################################################################
 
-#LABELS
+# LABELS
 TIME_LABEL = 'Time (s)'
 CURRENT_LABEL = 'Current (A)'
 VOLTAGE_LABEL = 'Voltage (V)'
@@ -30,3 +30,7 @@ CURRENT = 4
 CHARGE = 5
 DISCHARGE = 6
 TEMPERATURE = 7
+
+SECONDS_IN_DAY = 60*60*24
+SECONDS_IN_HOUR = 60*60
+SECONDS_IN_MINUTE = 60

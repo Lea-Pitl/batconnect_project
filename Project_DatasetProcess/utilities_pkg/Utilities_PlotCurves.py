@@ -29,7 +29,7 @@ def plotShow():
 #################################################
 
 
-def plotCurve1yAxis(x, y, xlabel, ylabel, color, bat_data):
+def plotCurve1yAxis(x, y, xlabel, ylabel, color, bat_data, label):
     """
     plotCurve2yAxis : Plot a curve from parameters x and one y axis
 
@@ -41,16 +41,14 @@ def plotCurve1yAxis(x, y, xlabel, ylabel, color, bat_data):
                             1 -> batconnect data
     """
     plt.xlabel(xlabel)
-    plt.ylabel(ylabel, color=color)
-    plt.plot(x, y, color=color )#, marker='o')
-    plt.tick_params(axis='y', labelcolor=color)
-    if bat_data==1:
+    plt.ylabel(ylabel)  # , color=color)
+    plt.plot(x, y, color=color, label=label)  # , marker='o')
+    plt.tick_params(axis='y')  # , labelcolor=color)
+    if bat_data == 1:
         plt.xticks(rotation=45)
-
-
     plt.grid(linestyle='-', linewidth=0.5)
     # plt.title(title)
-    # plt.legend()
+    # plt.legend(label, loc='upper left')
     # plt.show()
 
 
@@ -129,29 +127,34 @@ def plotCurves(x1, x2, y1, y2, labelx1, labely1, labelx2, labely2, title1, title
 
 #################################################
 
-def plotCurrentVoltage(time, current, voltage, bat_data):
+def plotCurrentVoltage(time, current, voltage, bat_data, tempe_label):
     """
-    plotCurrentVoltage : Plot curves of current and voltage in funciton of time on two different figures
+    plotCurrentVoltage : Plot curves of current and voltage in function of time on two different figures
 
     Parameters :
         - time, current, voltage (lists) : data lists
+        - bat_data (bool) : 0 if testbench values, 1 if batconnect values
+        tempe_label (str) : temperature label for the legend
     """
 
     plot1 = plt.figure(1)
     color = 'tab:red'
 
-    plotCurve1yAxis(time, current, TIME_LABEL, CURRENT_LABEL, color, bat_data)
+    plotCurve1yAxis(time, current, TIME_LABEL, CURRENT_LABEL, color, bat_data, tempe_label)
     plt.title('Current in function of time')
     plt.grid(linestyle='-', linewidth=0.5)
+    plt.legend(tempe_label, loc='upper left')
+
     color = 'tab:blue'
 
     plot1 = plt.figure(2)
 
-    plotCurve1yAxis(time, voltage, TIME_LABEL, VOLTAGE_LABEL, color, bat_data)
+    plotCurve1yAxis(time, voltage, TIME_LABEL, VOLTAGE_LABEL, color, bat_data, tempe_label)
     plt.title('Voltage in function of time')
     plt.grid(linestyle='-', linewidth=0.5)
-
-    plotShow()
+    
+    plt.legend(tempe_label, loc='upper left')
+    #plotShow()
 
 
 #################################################
@@ -164,11 +167,12 @@ def plotVoltageCapacity(voltage, capacity, bat_data):
         - voltage, capacity (lists) : data lists
     """
 
-    plotCurve1yAxis(voltage, capacity, VOLTAGE_LABEL, CAPACITY_LABEL, 'green', bat_data)
-    plt.title('Capacity in function of voltage')
+    plotCurve1yAxis(voltage, capacity, VOLTAGE_LABEL,
+                    CAPACITY_LABEL, 'green', bat_data)
+    plt.title('Capacity in function of voltage for two different temperatures')
     plt.grid(linestyle='-', linewidth=0.5)
 
-    plotShow()
+    # plotShow()
 
 
 #################################################
