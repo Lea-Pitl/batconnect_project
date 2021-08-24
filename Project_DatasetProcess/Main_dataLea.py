@@ -40,39 +40,51 @@ dic_data_tempe["12deg"] = dic_dataSet2
 dic_dataCycle1, dic_dataSeq1 = sortData(dic_data_tempe["25deg"])
 dic_dataCycle2, dic_dataSeq2 = sortData(dic_data_tempe["12deg"])
 
-plotVoltageTimeDiffTempe(dic_data_tempe["25deg"], dic_data_tempe["12deg"], nbCycle1, nbCycle2)
+##########
+# plot voltage curves in function of cycles for 15 cycles and 2 different temperatures
+##########
 
-plotShow()
+#plotVoltageTimeDiffTempe(dic_data_tempe["25deg"], dic_data_tempe["12deg"], nbCycle1, nbCycle2)
+#plotShow()
 
-bat_data = 0
-current_cycle = 10
+##########
+
 
 ##########
 # plot a voltage/capacity curve for 12°C and 25°C on one figure
 ##########
-x1 = dic_dataSeq1["T_c"][current_cycle]
-y1 = dic_dataSeq1["V_c"][current_cycle]
-x2 = dic_dataSeq2["T_c"][current_cycle]
-y2 = dic_dataSeq2["V_c"][current_cycle]
+bat_data = 0
+current_cycle = 10
+
+x1 = dic_dataSeq1["V_c"][current_cycle]
+y1 = dic_dataSeq1["Q_c"][current_cycle]
+x2 = dic_dataSeq2["V_c"][current_cycle]
+y2 = dic_dataSeq2["Q_c"][current_cycle]
 
 
-#plotVoltageCapacity(dic_dataSeq1["V_c"][10], dic_dataSeq1["Q_c"][10], 0)
-#plotVoltageCapacity(dic_dataSeq2["V_c"][10], dic_dataSeq2["Q_c"][10], 0)
+#plotCurve1yAxis(x1, y1, VOLTAGE_LABEL,
+ #CAPACITY_LABEL, 'green', bat_data, '25°C')
+#plotCurve1yAxis(x2, y2, VOLTAGE_LABEL,
+ #CAPACITY_LABEL, 'orange', bat_data, '12°C')
 
 
-# plotCurve1yAxis(x1, y1, VOLTAGE_LABEL,
-# CAPACITY_LABEL, 'green', bat_data, '25°C')
-# plotCurve1yAxis(x2, y2, VOLTAGE_LABEL,
-# CAPACITY_LABEL, 'orange', bat_data, '12°C')
-
-
-"""plt.title(
+plt.title(
     'Capacity in function of voltage for one charge for two different temperatures')
 plt.grid(linestyle='-', linewidth=0.5)
-plotShow()"""
+plotShow()
 
 
 ##########
+
+
+##########
+# plot ICA curves
+##########
+plotTestbenchICASeq(dic_dataSeq1, int(nbCycle2))
+
+
+##########
+
 
 
 #plotTestbenchICASeq(dic_dataSeq1, 15)

@@ -74,7 +74,7 @@ def plotTestbenchICASeq(dic_dataSeq, nb_cycle):
         legend.append('Cycle ' + str(i))
         plt.plot(V, y_sf)
 
-    plt.title('ICA Curve for charges at 30A')
+    plt.title('ICA Curves for 15 cycles for charges at 30A (bat1 at 25°C)')
     plt.xlabel(VOLTAGE_LABEL)
     plt.ylabel(ICA_LABEL)
     plt.grid(linestyle='-', linewidth=0.5)
