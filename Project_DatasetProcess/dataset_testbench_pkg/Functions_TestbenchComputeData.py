@@ -47,32 +47,29 @@ def calculICA(voltage, capacity, charge, high_voltage, low_voltage):
 
 #################################################
 
-def capacityCalcul(time, current, n, charge):
+def getMaxCapa(dic_dataSeq, current_cycle):
     """
-    capacityCalcul : create a list of capacity values from time and current values
+    getMaxCapa: return the value of the capacity max for one charge
 
-    Parameters :    
-        - time (list) : time values (s)
-        - current (list) : current values (A)
-        - n (int) : nomber of values
-        - charge (bool) : either 1 or 0 (1 == charge values ; 0 == discharge values)
+    Parameters:    
+        - dic_dataSeq (dict) : dictionnary of the values sorted by charge or discharge
+        - current_cycle (int) : current cycle to study
+
+    Return:
+        - max_capa (int) : max value of the capacity
     """
 
-    capacity = []
-
-    for i in range(n):
-        if i < 1:
-            capacity.append(time[i])
-        else:
-            # if charge then capacity[n-1] "+" ; if discharge then capacity[n-1] "-"
-            if charge == 1:
-                capacity.append(capacity[i-1]+(time[i]*current[i]/3600))
-            elif charge == 0:
-                capacity.append(capacity[i-1]-(time[i]*current[i]/3600))
-            else:
-                print("Error in charge value, must be 1 or 0")
-
-    return capacity
+    nb=0
+    max_capa=0
+    
+    for i in range(len(dic_dataSeq["Q_c"][current_cycle])):
+        nb+=1
+        if dic_dataSeq["Q_c"][current_cycle][i]>max_capa:
+            max_capa=dic_dataSeq["Q_c"][current_cycle][i]
+            
+    print(" ---------------\n"
+          "The max capacity of the charge is : ", max_capa, "A.h")
+    return max_capa
 
 #################################################
 
@@ -93,7 +90,7 @@ def percentageCapa(time, voltage, capa):
             capa_cv.append(capa[i])
 
     first_capa_cv_percent = capa_cv[0]*100/capa_cv[len(capa_cv)-1]
-    print('Percentage of capacity (SoC) at first CV voltage value : ',
+    print(' ------------\n Percentage of capacity (SoC) at first CV voltage value : ',
           first_capa_cv_percent)
 
     return capa_cv

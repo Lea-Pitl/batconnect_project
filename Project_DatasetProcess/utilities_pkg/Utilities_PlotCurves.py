@@ -5,6 +5,7 @@
 ###################################################################################################
 
 from dataset_testbench_pkg import *
+from dataset_testbench_pkg.constants import *
 import matplotlib.pyplot as plt
 
 ##################################################################################################
@@ -42,7 +43,7 @@ def plotCurve1yAxis(x, y, xlabel, ylabel, color, bat_data, label):
     """
     plt.xlabel(xlabel)
     plt.ylabel(ylabel)  # , color=color)
-    plt.plot(x, y, color=color, label=label)  # , marker='o')
+    plt.plot(x, y, color=color, label=label , marker='.')
     plt.tick_params(axis='y')  # , labelcolor=color)
     if bat_data == 1:
         plt.xticks(rotation=45)
@@ -127,7 +128,7 @@ def plotCurves(x1, x2, y1, y2, labelx1, labely1, labelx2, labely2, title1, title
 
 #################################################
 
-def plotCurrentVoltage(time, current, voltage, bat_data, tempe_label):
+def plotCurrentVoltage(time, current, voltage, bat_data, tempe_label, current_title, volt_title):
     """
     plotCurrentVoltage : Plot curves of current and voltage in function of time on two different figures
 
@@ -141,16 +142,16 @@ def plotCurrentVoltage(time, current, voltage, bat_data, tempe_label):
     color = 'tab:red'
 
     plotCurve1yAxis(time, current, TIME_LABEL, CURRENT_LABEL, color, bat_data, tempe_label)
-    plt.title('Current in function of time')
+    plt.title(current_title)
     plt.grid(linestyle='-', linewidth=0.5)
-    plt.legend(tempe_label, loc='upper left')
+    plt.legend(tempe_label, loc='upper right')
 
     color = 'tab:blue'
 
     plot1 = plt.figure(2)
 
     plotCurve1yAxis(time, voltage, TIME_LABEL, VOLTAGE_LABEL, color, bat_data, tempe_label)
-    plt.title('Voltage in function of time')
+    plt.title(volt_title)
     plt.grid(linestyle='-', linewidth=0.5)
     
     plt.legend(tempe_label, loc='upper left')
