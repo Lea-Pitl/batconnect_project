@@ -1,7 +1,7 @@
 # README : BATCONNECT PROJECT
 **Author :** Léa PITAULT
 
-**Tutors :** COorinne Alonso, Élodie Chanthery, Pauline Ribot (LAAS-CNRS) & Jérémy Dulout (BATCONNECT Company)
+**Tutors :** Corinne Alonso, Élodie Chanthery, Pauline Ribot (LAAS-CNRS) & Jérémy Dulout (BATCONNECT Company)
 
 **Internship starting date :** June 1st 2021
 
